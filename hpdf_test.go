@@ -61,47 +61,6 @@ func TestPDFSaveToFile(t *T) {
 	}
 }
 
-func TestPDFSaveToStream(t *T) {
-	pdf, err := New()
-
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	err = pdf.SaveToStream()
-
-	if err != nil {
-		t.Fatal(err)
-	}
-}
-
-func TestPDFGetStreamSize(t *T) {
-	pdf, err := New()
-
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if pdf.GetStreamSize() != 0 {
-		t.Fatal(pdf.GetLastError())
-	}
-}
-
-func TestPDFResetStream(t *T) {
-	pdf, err := New()
-
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	err = pdf.ResetStream()
-	hpdfError := err.(*Error)
-
-	if hpdfError.Code != ERR_INVALID_OPERATION {
-		t.Fatal(err)
-	}
-}
-
 func TestPDFHasDoc(t *T) {
 	pdf, err := New()
 
@@ -109,19 +68,69 @@ func TestPDFHasDoc(t *T) {
 		t.Fatal(err)
 	}
 
-	if exist, err := pdf.HasDoc(); !exist {
-		t.Fatal(err)
+	if !pdf.HasDoc() {
+		t.Fatal(pdf.GetLastError())
 	}
 
 	pdf.FreeDocAll()
 
-	if exist, err := pdf.HasDoc(); exist {
-		t.Fatal(err)
+	if pdf.HasDoc() {
+		t.Fatal(pdf.GetLastError())
 	}
 
 	pdf.NewDoc()
 
-	if exist, err := pdf.HasDoc(); !exist {
+	if !pdf.HasDoc() {
+		t.Fatal(pdf.GetLastError())
+	}
+}
+
+func TestPDFSetPageConfiguration(t *T) {
+	pdf, err := New()
+
+	if err != nil {
 		t.Fatal(err)
+	}
+
+	err = pdf.SetPagesConfiguration(100)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestPDFSetPageLayout(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.SetPageLayout(PAGE_LAYOUT_TWO_COLUMN_RIGHT)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if pdf.GetPageLayout() != PAGE_LAYOUT_TWO_COLUMN_RIGHT {
+		t.Fatalf("Missmatch page layout: %d", pdf.GetPageLayout())
+	}
+}
+
+func TestSetPageMode(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.SetPageMode(PAGE_MODE_FULL_SCREEN)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if pdf.GetPageMode() != PAGE_MODE_FULL_SCREEN {
+		t.Fatalf("Missmatch page layout: %d", pdf.GetPageMode())
 	}
 }

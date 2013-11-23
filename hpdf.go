@@ -65,23 +65,29 @@ func (pdf *PDF) SaveToFile(fn string) error {
 	return pdf.GetLastError()
 }
 
-func (pdf *PDF) SaveToStream() error {
-	C.HPDF_SaveToStream(pdf.doc)
+func (pdf *PDF) HasDoc() bool {
+	return C.HPDF_HasDoc(pdf.doc) == C.HPDF_TRUE
+}
+
+func (pdf *PDF) SetPagesConfiguration(page_per_pages uint) error {
+	C.HPDF_SetPagesConfiguration(pdf.doc, C.HPDF_UINT(page_per_pages))
 	return pdf.GetLastError()
 }
 
-func (pdf *PDF) GetStreamSize() uint32 {
-	return uint32(C.HPDF_GetStreamSize(pdf.doc))
-}
-
-// TODO: func (pdf *PDF) ReadFromStream(buf []byte)
-
-func (pdf *PDF) ResetStream() error {
-	C.HPDF_ResetStream(pdf.doc)
+func (pdf *PDF) SetPageLayout(layout PageLayout) error {
+	C.HPDF_SetPageLayout(pdf.doc, C.HPDF_PageLayout(layout))
 	return pdf.GetLastError()
 }
 
-func (pdf *PDF) HasDoc() (bool, error) {
-	ret := C.HPDF_HasDoc(pdf.doc) == C.HPDF_TRUE
-	return ret, pdf.GetLastError()
+func (pdf *PDF) GetPageLayout() PageLayout {
+	return PageLayout(C.HPDF_GetPageLayout(pdf.doc))
+}
+
+func (pdf *PDF) SetPageMode(pageMode PageMode) error {
+	C.HPDF_SetPageMode(pdf.doc, C.HPDF_PageMode(pageMode))
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) GetPageMode() PageMode {
+	return PageMode(C.HPDF_GetPageMode(pdf.doc))
 }
