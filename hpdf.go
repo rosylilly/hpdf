@@ -91,3 +91,5 @@ func (pdf *PDF) SetPageMode(pageMode PageMode) error {
 func (pdf *PDF) GetPageMode() PageMode {
 	return PageMode(C.HPDF_GetPageMode(pdf.doc))
 }
+
+// func (pdf *PDF) SetOpenAction
