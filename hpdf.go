@@ -92,7 +92,10 @@ func (pdf *PDF) GetPageMode() PageMode {
 	return PageMode(C.HPDF_GetPageMode(pdf.doc))
 }
 
-// func (pdf *PDF) SetOpenAction
+func (pdf *PDF) SetOpenAction(destination *Destination) error {
+	C.HPDF_SetOpenAction(pdf.doc, destination.destination)
+	return pdf.GetLastError()
+}
 
 func (pdf *PDF) AddPageLabel(
 	pageNum uint, pageNumStyle PageNumStyle, firstPage uint, prefix string,

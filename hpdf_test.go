@@ -135,6 +135,23 @@ func TestPDFSetPageMode(t *T) {
 	}
 }
 
+func TestPDFSetOpenAction(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	page, _ := pdf.AddPage()
+	destination, _ := page.CreateDestination()
+
+	err = pdf.SetOpenAction(destination)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestPDFAddPageLabel(t *T) {
 	pdf, err := New()
 

@@ -27,3 +27,18 @@ func TestInsertPage(t *T) {
 		t.Fatal(err)
 	}
 }
+
+func TestPageCreateDestionation(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	destination, err := page.CreateDestination()
+
+	if destination == nil || err != nil {
+		t.Fatal(err)
+	}
+}

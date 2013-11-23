@@ -13,7 +13,7 @@ func (pdf *PDF) GetCurrentPage() *Page {
 		return nil
 	}
 
-	return &Page{page}
+	return &Page{page, pdf}
 }
 
 func (pdf *PDF) AddPage() (*Page, error) {
@@ -23,7 +23,7 @@ func (pdf *PDF) AddPage() (*Page, error) {
 		return nil, pdf.GetLastError()
 	}
 
-	return newPage(page), nil
+	return newPage(page, pdf), nil
 }
 
 func (pdf *PDF) InsertPage(src *Page) (*Page, error) {
@@ -33,14 +33,25 @@ func (pdf *PDF) InsertPage(src *Page) (*Page, error) {
 		return nil, pdf.GetLastError()
 	}
 
-	return newPage(page), nil
+	return newPage(page, pdf), nil
 }
 
 type Page struct {
 	page C.HPDF_Page
+	pdf  *PDF
 }
 
-func newPage(src C.HPDF_Page) *Page {
-	page := &Page{src}
+func newPage(src C.HPDF_Page, pdf *PDF) *Page {
+	page := &Page{src, pdf}
 	return page
+}
+
+func (page *Page) CreateDestination() (*Destination, error) {
+	destination := C.HPDF_Page_CreateDestination(page.page)
+
+	if destination != nil {
+		return &Destination{destination, page}, nil
+	} else {
+		return nil, page.pdf.GetLastError()
+	}
 }
