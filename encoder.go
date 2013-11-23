@@ -3,9 +3,20 @@ package hpdf
 /*
 #cgo LDFLAGS: -lhpdf -lpng -lz
 #include "hpdf.h"
+
+#if HPDF_MAJOR_VERSION >= 2 && HPDF_MINOR_VERSION < 3
+#define HPDF_UTF_SUPPORT 0
+
+HPDF_STATUS HPDF_UseUTFEncodings(HPDF_Doc pdf) {
+	return HPDF_OK;
+}
+#else
+#define HPDF_UTF_SUPPORT 1
+#endif
 */
 import "C"
 import (
+	"errors"
 	"unsafe"
 )
 
@@ -56,6 +67,14 @@ func (pdf *PDF) UseCNTEncodings() error {
 
 func (pdf *PDF) UseCNSEncodings() error {
 	C.HPDF_UseCNSEncodings(pdf.doc)
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) UseUTFEncodings() error {
+	if C.HPDF_UTF_SUPPORT == 0 {
+		return errors.New("UTF Encoding is not supported")
+	}
+	C.HPDF_UseUTFEncodings(pdf.doc)
 	return pdf.GetLastError()
 }
 

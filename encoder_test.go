@@ -75,3 +75,13 @@ func TestUseCNSEncodings(t *T) {
 		t.Fatal(err)
 	}
 }
+
+func TestUseUTFEncodings(t *T) {
+	pdf, _ := New()
+
+	err := pdf.UseUTFEncodings()
+
+	if err != nil && err.Error() != "UTF Encoding is not supported" {
+		t.Fatal(err)
+	}
+}
