@@ -67,6 +67,23 @@ func (pdf *PDF) LoadTTFontFromFile(fontName string, embedding bool) (string, err
 	}
 }
 
+func (pdf *PDF) LoadTTFontFromFile2(fontName string, index uint, embedding bool) (string, error) {
+	cfontName := C.CString(fontName)
+	var cembedding C.HPDF_BOOL = C.HPDF_TRUE
+	if !embedding {
+		cembedding = C.HPDF_FALSE
+	}
+	retFontName := C.HPDF_LoadTTFontFromFile2(pdf.doc, cfontName, C.HPDF_UINT(index), cembedding)
+	C.free(unsafe.Pointer(cfontName))
+
+	if retFontName != nil {
+		defer C.free(unsafe.Pointer(retFontName))
+		return C.GoString(retFontName), nil
+	} else {
+		return "", pdf.GetLastError()
+	}
+}
+
 type Font struct {
 	font C.HPDF_Font
 }
