@@ -23,7 +23,7 @@ func (pdf *PDF) AddPage() (*Page, error) {
 		return nil, pdf.GetLastError()
 	}
 
-	return newPageBySrc(page), nil
+	return newPage(page), nil
 }
 
 func (pdf *PDF) InsertPage(src *Page) (*Page, error) {
@@ -33,20 +33,14 @@ func (pdf *PDF) InsertPage(src *Page) (*Page, error) {
 		return nil, pdf.GetLastError()
 	}
 
-	return newPageBySrc(page), nil
+	return newPage(page), nil
 }
 
 type Page struct {
 	page C.HPDF_Page
 }
 
-func NewPage() *Page {
-	page := &Page{}
-	return page
-}
-
-func newPageBySrc(src C.HPDF_Page) *Page {
-	page := NewPage()
-	page.page = src
+func newPage(src C.HPDF_Page) *Page {
+	page := &Page{src}
 	return page
 }
