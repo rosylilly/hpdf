@@ -86,3 +86,42 @@ func TestPDFGetStreamSize(t *T) {
 		t.Fatal(pdf.GetLastError())
 	}
 }
+
+func TestPDFResetStream(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.ResetStream()
+	hpdfError := err.(*Error)
+
+	if hpdfError.Code != ERR_INVALID_OPERATION {
+		t.Fatal(err)
+	}
+}
+
+func TestPDFHasDoc(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if exist, err := pdf.HasDoc(); !exist {
+		t.Fatal(err)
+	}
+
+	pdf.FreeDocAll()
+
+	if exist, err := pdf.HasDoc(); exist {
+		t.Fatal(err)
+	}
+
+	pdf.NewDoc()
+
+	if exist, err := pdf.HasDoc(); !exist {
+		t.Fatal(err)
+	}
+}

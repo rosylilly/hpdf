@@ -73,3 +73,15 @@ func (pdf *PDF) SaveToStream() error {
 func (pdf *PDF) GetStreamSize() uint32 {
 	return uint32(C.HPDF_GetStreamSize(pdf.doc))
 }
+
+// TODO: func (pdf *PDF) ReadFromStream(buf []byte)
+
+func (pdf *PDF) ResetStream() error {
+	C.HPDF_ResetStream(pdf.doc)
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) HasDoc() (bool, error) {
+	ret := C.HPDF_HasDoc(pdf.doc) == C.HPDF_TRUE
+	return ret, pdf.GetLastError()
+}
