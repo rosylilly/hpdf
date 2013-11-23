@@ -21,3 +21,17 @@ func TestPDFFree(t *T) {
 
 	pdf.Free()
 }
+
+func TestPDFSaveToFile(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.SaveToFile("tmp/save_to_file.pdf")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
