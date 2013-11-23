@@ -84,6 +84,26 @@ func (pdf *PDF) LoadTTFontFromFile2(fontName string, index uint, embedding bool)
 	}
 }
 
+func (pdf *PDF) UseJPFonts() error {
+	C.HPDF_UseJPFonts(pdf.doc)
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) UseKRFonts() error {
+	C.HPDF_UseKRFonts(pdf.doc)
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) UseCNSFonts() error {
+	C.HPDF_UseCNSFonts(pdf.doc)
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) UseCNTFonts() error {
+	C.HPDF_UseCNTFonts(pdf.doc)
+	return pdf.GetLastError()
+}
+
 type Font struct {
 	font C.HPDF_Font
 }

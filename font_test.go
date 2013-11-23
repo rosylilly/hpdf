@@ -25,3 +25,43 @@ func TestLoadTTFontFromFile(t *T) {
 func TestLoadTTFontFromFile2(t *T) {
 	t.Skip("I dont't have ttc files")
 }
+
+func TestUseJPFonts(t *T) {
+	pdf, _ := New()
+
+	err := pdf.UseJPFonts()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestUseKRFonts(t *T) {
+	pdf, _ := New()
+
+	err := pdf.UseKRFonts()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestUseCNSFonts(t *T) {
+	pdf, _ := New()
+
+	err := pdf.UseCNSFonts()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestUseCNTFonts(t *T) {
+	pdf, _ := New()
+
+	err := pdf.UseCNTFonts()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
