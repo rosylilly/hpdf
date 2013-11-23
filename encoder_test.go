@@ -35,3 +35,43 @@ func TestGetCurrentEncoder(t *T) {
 		t.Fatal(pdf.GetLastError())
 	}
 }
+
+func TestUseJPEncodings(t *T) {
+	pdf, _ := New()
+
+	err := pdf.UseJPEncodings()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestUseKREncodings(t *T) {
+	pdf, _ := New()
+
+	err := pdf.UseKREncodings()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestUseCNTEncodings(t *T) {
+	pdf, _ := New()
+
+	err := pdf.UseCNTEncodings()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestUseCNSEncodings(t *T) {
+	pdf, _ := New()
+
+	err := pdf.UseCNSEncodings()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}

@@ -39,6 +39,26 @@ func (pdf *PDF) SetCurrentEncoder(encodingName string) error {
 	return pdf.GetLastError()
 }
 
+func (pdf *PDF) UseJPEncodings() error {
+	C.HPDF_UseJPEncodings(pdf.doc)
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) UseKREncodings() error {
+	C.HPDF_UseKREncodings(pdf.doc)
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) UseCNTEncodings() error {
+	C.HPDF_UseCNTEncodings(pdf.doc)
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) UseCNSEncodings() error {
+	C.HPDF_UseCNSEncodings(pdf.doc)
+	return pdf.GetLastError()
+}
+
 type Encoder struct {
 	encoding C.HPDF_Encoder
 }
