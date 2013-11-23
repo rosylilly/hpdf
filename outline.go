@@ -33,5 +33,19 @@ type Outline struct {
 	outline C.HPDF_Outline
 	Parent  *Outline
 	Caption string
-	PDF     *PDF
+	pdf     *PDF
+}
+
+func (outline *Outline) SetOpened(opend bool) error {
+	var copened C.HPDF_BOOL = C.HPDF_FALSE
+	if opend {
+		copened = C.HPDF_TRUE
+	}
+	C.HPDF_Outline_SetOpened(outline.outline, copened)
+	return outline.pdf.GetLastError()
+}
+
+func (outline *Outline) SetDestination(destination *Destination) error {
+	C.HPDF_Outline_SetDestination(outline.outline, destination.destination)
+	return outline.pdf.GetLastError()
 }
