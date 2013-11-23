@@ -79,5 +79,5 @@ func (pdf *PDF) UseUTFEncodings() error {
 }
 
 type Encoder struct {
-	encoding C.HPDF_Encoder
+	encoder C.HPDF_Encoder
 }
