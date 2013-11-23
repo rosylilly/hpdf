@@ -13,13 +13,38 @@ func TestNewPDF(t *T) {
 }
 
 func TestPDFFree(t *T) {
-	pdf, err := New()
+	pdf, _ := New()
+	pdf.Free()
+}
+
+func TestPDFNewDoc(t *T) {
+	pdf, _ := New()
+
+	err := pdf.NewDoc()
 
 	if err != nil {
 		t.Fatal(err)
 	}
+}
 
-	pdf.Free()
+func TestPDFFreeDoc(t *T) {
+	pdf, _ := New()
+	pdf.NewDoc()
+	pdf.FreeDoc()
+
+	if err := pdf.GetLastError(); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestPDFFreeDocAll(t *T) {
+	pdf, _ := New()
+	pdf.NewDoc()
+	pdf.FreeDocAll()
+
+	if err := pdf.GetLastError(); err != nil {
+		t.Fatal(err)
+	}
 }
 
 func TestPDFSaveToFile(t *T) {
@@ -33,5 +58,31 @@ func TestPDFSaveToFile(t *T) {
 
 	if err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestPDFSaveToStream(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.SaveToStream()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestPDFGetStreamSize(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if pdf.GetStreamSize() != 0 {
+		t.Fatal(pdf.GetLastError())
 	}
 }
