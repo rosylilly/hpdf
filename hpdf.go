@@ -93,3 +93,18 @@ func (pdf *PDF) GetPageMode() PageMode {
 }
 
 // func (pdf *PDF) SetOpenAction
+
+func (pdf *PDF) AddPageLabel(
+	pageNum uint, pageNumStyle PageNumStyle, firstPage uint, prefix string,
+) error {
+	cprefix := C.CString(prefix)
+	C.HPDF_AddPageLabel(
+		pdf.doc,
+		C.HPDF_UINT(pageNum),
+		C.HPDF_PageNumStyle(pageNumStyle),
+		C.HPDF_UINT(firstPage),
+		cprefix,
+	)
+	C.free(unsafe.Pointer(cprefix))
+	return nil
+}

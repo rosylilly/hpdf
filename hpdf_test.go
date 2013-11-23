@@ -117,7 +117,7 @@ func TestPDFSetPageLayout(t *T) {
 	}
 }
 
-func TestSetPageMode(t *T) {
+func TestPDFSetPageMode(t *T) {
 	pdf, err := New()
 
 	if err != nil {
@@ -132,5 +132,19 @@ func TestSetPageMode(t *T) {
 
 	if pdf.GetPageMode() != PAGE_MODE_FULL_SCREEN {
 		t.Fatalf("Missmatch page layout: %d", pdf.GetPageMode())
+	}
+}
+
+func TestPDFAddPageLabel(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.AddPageLabel(0, PAGE_NUM_STYLE_LOWER_LETTERS, 0, "test-")
+
+	if err != nil {
+		t.Fatal(err)
 	}
 }
