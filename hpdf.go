@@ -7,6 +7,7 @@ package hpdf
 import "C"
 import (
 	"runtime"
+	"time"
 	"unsafe"
 )
 
@@ -110,4 +111,54 @@ func (pdf *PDF) AddPageLabel(
 	)
 	C.free(unsafe.Pointer(cprefix))
 	return nil
+}
+
+func (pdf *PDF) SetInfoAttr(infoType InfoType, value string) error {
+	cvalue := C.CString(value)
+	defer C.free(unsafe.Pointer(cvalue))
+	C.HPDF_SetInfoAttr(pdf.doc, C.HPDF_InfoType(infoType), cvalue)
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) GetInfoAttr(infoType InfoType) (string, error) {
+	cvalue := C.HPDF_GetInfoAttr(pdf.doc, C.HPDF_InfoType(infoType))
+
+	if cvalue != nil {
+		defer C.free(unsafe.Pointer(cvalue))
+		return C.GoString(cvalue), nil
+	} else {
+		return "", pdf.GetLastError()
+	}
+}
+
+func (pdf *PDF) SetInfoDateAttr(infoType InfoType, datetime time.Time) error {
+	cdate := timeToHPDFDate(datetime)
+	C.HPDF_SetInfoDateAttr(pdf.doc, C.HPDF_InfoType(infoType), cdate)
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) SetPassword(ownerPassword, userPassword string) error {
+	cownerPassword := C.CString(ownerPassword)
+	cuserPassword := C.CString(userPassword)
+	C.HPDF_SetPassword(pdf.doc, cownerPassword, cuserPassword)
+	C.free(unsafe.Pointer(cownerPassword))
+	C.free(unsafe.Pointer(cuserPassword))
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) SetPermission(permission Permission) error {
+	C.HPDF_SetPermission(pdf.doc, C.HPDF_UINT(permission))
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) SetEncryptMode(encryptMode EncryptMode, keyLen uint32) error {
+	C.HPDF_SetEncryptionMode(
+		pdf.doc, C.HPDF_EncryptMode(encryptMode), C.HPDF_UINT(keyLen),
+	)
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) SetCompressionMode(compressionMode CompressionMode) error {
+	C.HPDF_SetCompressionMode(pdf.doc, C.HPDF_UINT(compressionMode))
+	return pdf.GetLastError()
 }

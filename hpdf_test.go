@@ -2,6 +2,7 @@ package hpdf
 
 import (
 	. "testing"
+	"time"
 )
 
 func TestNewPDF(t *T) {
@@ -160,6 +161,101 @@ func TestPDFAddPageLabel(t *T) {
 	}
 
 	err = pdf.AddPageLabel(0, PAGE_NUM_STYLE_LOWER_LETTERS, 0, "test-")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestPDFSetInfoAttr(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.SetInfoAttr(INFO_TITLE, "HPDF Test")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	title, err := pdf.GetInfoAttr(INFO_TITLE)
+
+	if title != "HPDF Test" || err != nil {
+		t.Fatal(err)
+	}
+
+	date := time.Now().Add(10 * time.Hour)
+	err = pdf.SetInfoDateAttr(INFO_CREATION_DATE, date)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestPDFSetPassword(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.SetPassword("owner pass", "user pass")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestPDFSetPermission(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.SetPassword("owner pass", "user pass")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.SetPermission(ENABLE_READ | ENABLE_COPY)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestPDFSetEncryptMode(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.SetPassword("owner pass", "user pass")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.SetEncryptMode(ENCRYPT_R3, 10)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestPDFSetCompressionMode(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = pdf.SetCompressionMode(COMP_ALL)
 
 	if err != nil {
 		t.Fatal(err)
