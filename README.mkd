@@ -1,0 +1,23 @@
+# hpdf
+
+a [libharu](http://www.libharu.org/) binding for golang
+
+Copyright 2013 (c) Sho Kusano
+
+## Install
+
+A hpdf requires libharu's shared-libary. please install libharu before install hpdf.
+
+```shell
+$ brew install libharu
+```
+
+(in Mac OS X)
+
+Install hpdf by github
+
+```shell
+$ go install github.com/rosylilly/hpdf
+```
+
+NOTE: Set env `CC=GCC-4.2` in Mac OS X and go v1.1.2
