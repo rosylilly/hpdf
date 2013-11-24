@@ -112,3 +112,48 @@ func newFont(src C.HPDF_Font) *Font {
 	font := &Font{src}
 	return font
 }
+
+func (font *Font) GetFontName() string {
+	cfontName := C.HPDF_Font_GetFontName(font.font)
+
+	if cfontName != nil {
+		return C.GoString(cfontName)
+	} else {
+		return ""
+	}
+}
+
+func (font *Font) GetEncodingName() string {
+	cencodingName := C.HPDF_Font_GetEncodingName(font.font)
+
+	if cencodingName != nil {
+		return C.GoString(cencodingName)
+	} else {
+		return ""
+	}
+}
+
+func (font *Font) GetUnicodeWidth(char rune) int32 {
+	ccharWidth := C.HPDF_Font_GetUnicodeWidth(font.font, C.HPDF_UNICODE(char))
+	return int32(ccharWidth)
+}
+
+func (font *Font) GetBBox() *Box {
+	return NewBoxByHPDFBox(C.HPDF_Font_GetBBox(font.font))
+}
+
+func (font *Font) GetAscent() int32 {
+	return int32(C.HPDF_Font_GetAscent(font.font))
+}
+
+func (font *Font) GetDescent() int32 {
+	return int32(C.HPDF_Font_GetDescent(font.font))
+}
+
+func (font *Font) GetXHeight() uint32 {
+	return uint32(C.HPDF_Font_GetXHeight(font.font))
+}
+
+func (font *Font) GetCapHeight() uint32 {
+	return uint32(C.HPDF_Font_GetCapHeight(font.font))
+}
