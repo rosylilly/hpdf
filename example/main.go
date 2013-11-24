@@ -6,8 +6,10 @@ import (
 
 func main() {
 	pdf, _ := hpdf.New()
-	pdf.AddPage()
-	pdf.AddPage()
-	pdf.AddPage()
+	page, _ := pdf.AddPage()
+	image, _ := pdf.LoadPngImageFromFile("../testdata/png.png")
+	page.SetWidth(470)
+	page.SetHeight(470)
+	page.DrawImage(image, 0, 0, 470, 470)
 	pdf.SaveToFile("example.pdf")
 }
