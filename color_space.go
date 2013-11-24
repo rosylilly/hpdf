@@ -21,4 +21,5 @@ const (
 	CS_INDEXED     ColorSpace = C.HPDF_CS_INDEXED
 	CS_PATTERN     ColorSpace = C.HPDF_CS_PATTERN
 	CS_EOF         ColorSpace = C.HPDF_CS_EOF
+	CS_UNKNOWN     ColorSpace = -100
 )
