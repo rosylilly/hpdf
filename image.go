@@ -65,7 +65,7 @@ func (pdf *PDF) LoadJpegImageFromFile(filename string) (*Image, error) {
 
 type Image struct {
 	image C.HPDF_Image
-	pdf *PDF
+	pdf   *PDF
 }
 
 func newImage(image C.HPDF_Image, pdf *PDF) *Image {
@@ -96,7 +96,7 @@ func (image *Image) GetColorSpace() ColorSpace {
 	} else {
 		colorSpace := C.GoString(ccolorSpace)
 
-		switch(colorSpace) {
+		switch colorSpace {
 		case "DeviceGray":
 			return CS_DEVICE_GRAY
 		case "DeviceRGB":
