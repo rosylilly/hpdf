@@ -6,6 +6,16 @@ package hpdf
 */
 import "C"
 
+func (page *Page) CreateDestination() (*Destination, error) {
+	destination := C.HPDF_Page_CreateDestination(page.page)
+
+	if destination != nil {
+		return &Destination{destination, page}, nil
+	} else {
+		return nil, page.pdf.GetLastError()
+	}
+}
+
 type Destination struct {
 	destination C.HPDF_Destination
 	page        *Page

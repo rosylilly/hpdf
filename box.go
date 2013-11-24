@@ -13,7 +13,7 @@ type Box struct {
 	Top    float32
 }
 
-func NewBoxByHPDFBox(box C.HPDF_Box) *Box {
+func newBoxByHPDFBox(box C.HPDF_Box) *Box {
 	return &Box{
 		float32(box.left),
 		float32(box.bottom),

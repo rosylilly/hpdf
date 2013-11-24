@@ -4,6 +4,21 @@ import (
 	. "testing"
 )
 
+func TestCreateDestionation(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	destination, err := page.CreateDestination()
+
+	if destination == nil || err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestSetXYZ(t *T) {
 	pdf, _ := New()
 	page, _ := pdf.AddPage()

@@ -28,7 +28,7 @@ func TestInsertPage(t *T) {
 	}
 }
 
-func TestPageCreateDestionation(t *T) {
+func TestPageSetWidth(t *T) {
 	pdf, _ := New()
 
 	page, err := pdf.AddPage()
@@ -36,9 +36,58 @@ func TestPageCreateDestionation(t *T) {
 		t.Fatal(err)
 	}
 
-	destination, err := page.CreateDestination()
+	width := float32(200)
 
-	if destination == nil || err != nil {
+	err = page.SetWidth(width)
+
+	if err != nil || page.GetWidth() != width {
+		t.Fatal(err)
+	}
+}
+
+func TestPageSetHeight(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	height := float32(200)
+
+	err = page.SetHeight(height)
+
+	if err != nil || page.GetHeight() != height {
+		t.Fatal(err)
+	}
+}
+
+func TestPageSetSize(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = page.SetSize(PAGE_SIZE_COMM10, PAGE_LANDSCAPE)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestPageSetRotate(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = page.SetRotate(90)
+
+	if err != nil {
 		t.Fatal(err)
 	}
 }

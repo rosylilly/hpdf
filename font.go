@@ -139,7 +139,7 @@ func (font *Font) GetUnicodeWidth(char rune) int32 {
 }
 
 func (font *Font) GetBBox() *Box {
-	return NewBoxByHPDFBox(C.HPDF_Font_GetBBox(font.font))
+	return newBoxByHPDFBox(C.HPDF_Font_GetBBox(font.font))
 }
 
 func (font *Font) GetAscent() int32 {
