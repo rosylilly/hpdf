@@ -85,3 +85,91 @@ func TestUseUTFEncodings(t *T) {
 		t.Fatal(err)
 	}
 }
+
+func TestEncoderGetType(t *T) {
+	pdf, _ := New()
+
+	err := pdf.SetCurrentEncoder("StandardEncoding")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	encoder := pdf.GetCurrentEncoder()
+
+	if encoder == nil {
+		t.Fatal(pdf.GetLastError())
+	}
+
+	encoderType := encoder.GetType()
+
+	if encoderType != ENCODER_TYPE_SINGLE_BYTE {
+		t.Fatal(pdf.GetLastError())
+	}
+}
+
+func TestEncoderGetByteType(t *T) {
+	pdf, _ := New()
+
+	err := pdf.SetCurrentEncoder("StandardEncoding")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	encoder := pdf.GetCurrentEncoder()
+
+	if encoder == nil {
+		t.Fatal(pdf.GetLastError())
+	}
+
+	byteType := encoder.GetByteType("a", 0)
+
+	if byteType != BYTE_TYPE_SINGLE {
+		t.Fatal(pdf.GetLastError())
+	}
+}
+
+func TestEncoderGetUnicode(t *T) {
+	pdf, _ := New()
+
+	err := pdf.SetCurrentEncoder("StandardEncoding")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	encoder := pdf.GetCurrentEncoder()
+
+	if encoder == nil {
+		t.Fatal(pdf.GetLastError())
+	}
+
+	unicode := encoder.GetUnicode(97)
+
+	if unicode != 'a' {
+		t.Fatal(pdf.GetLastError())
+	}
+}
+
+func TestEncoderGetWritingMode(t *T) {
+	pdf, _ := New()
+
+	err := pdf.SetCurrentEncoder("StandardEncoding")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	encoder := pdf.GetCurrentEncoder()
+
+	if encoder == nil {
+		t.Fatal(pdf.GetLastError())
+	}
+
+	writingMode := encoder.GetWritingMode()
+
+	if writingMode != WMODE_HORIZONTAL {
+		t.Fatal(pdf.GetLastError())
+	}
+}

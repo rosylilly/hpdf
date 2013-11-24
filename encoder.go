@@ -81,3 +81,24 @@ func (pdf *PDF) UseUTFEncodings() error {
 type Encoder struct {
 	encoder C.HPDF_Encoder
 }
+
+func (encoder *Encoder) GetType() EncoderType {
+	return EncoderType(C.HPDF_Encoder_GetType(encoder.encoder))
+}
+
+func (encoder *Encoder) GetByteType(text string, index uint) ByteType {
+	ctext := C.CString(text)
+	defer C.free(unsafe.Pointer(ctext))
+
+	return ByteType(
+		C.HPDF_Encoder_GetByteType(encoder.encoder, ctext, C.HPDF_UINT(index)),
+	)
+}
+
+func (encoder *Encoder) GetUnicode(code uint16) rune {
+	return rune(C.HPDF_Encoder_GetUnicode(encoder.encoder, C.HPDF_UINT16(code)))
+}
+
+func (encoder *Encoder) GetWritingMode() WritingMode {
+	return WritingMode(C.HPDF_Encoder_GetWritingMode(encoder.encoder))
+}
