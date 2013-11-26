@@ -91,3 +91,18 @@ func TestPageSetRotate(t *T) {
 		t.Fatal(err)
 	}
 }
+
+func TestPageTextWidth(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	width := page.TextWidth("text")
+
+	if width == 0 {
+		t.Fatal(pdf.GetLastError())
+	}
+}

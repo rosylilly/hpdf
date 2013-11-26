@@ -5,6 +5,9 @@ package hpdf
 #include "hpdf.h"
 */
 import "C"
+import (
+	"unsafe"
+)
 
 func (pdf *PDF) GetCurrentPage() *Page {
 	page := C.HPDF_GetCurrentPage(pdf.doc)
@@ -74,4 +77,10 @@ func (page *Page) GetWidth() float32 {
 
 func (page *Page) GetHeight() float32 {
 	return float32(C.HPDF_Page_GetHeight(page.page))
+}
+
+func (page *Page) TextWidth(text string) float32 {
+	ctext := C.CString(text)
+	defer C.free(unsafe.Pointer(ctext))
+	return float32(C.HPDF_Page_TextWidth(page.page, ctext))
 }
