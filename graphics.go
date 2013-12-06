@@ -13,3 +13,10 @@ func (page *Page) DrawImage(image *Image, x, y, width, height float32) error {
 	)
 	return page.pdf.GetLastError()
 }
+
+func (page *Page) SetFontAndSize(font *Font, size float32) error {
+	C.HPDF_Page_SetFontAndSize(
+		page.page, font.font, C.HPDF_REAL(size),
+	)
+	return page.pdf.GetLastError()
+}

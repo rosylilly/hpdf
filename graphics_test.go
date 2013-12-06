@@ -15,3 +15,15 @@ func TestPageDrawImage(t *T) {
 		t.Fatal(err)
 	}
 }
+
+func TestPageSetFontAndSize(t *T) {
+	pdf, _ := New()
+	font, _ := pdf.GetFont("Courier")
+	page, _ := pdf.AddPage()
+
+	err := page.SetFontAndSize(font, 12)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
