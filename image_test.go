@@ -1,6 +1,7 @@
 package hpdf
 
 import (
+	"io/ioutil"
 	. "testing"
 )
 
@@ -24,6 +25,22 @@ func TestLoadPngImageFromFile2(t *T) {
 	}
 }
 
+func TestLoadPngImageFromMem(t *T) {
+	pdf, _ := New()
+
+	blob, err := ioutil.ReadFile("testdata/png.png")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	png, err := pdf.LoadPngImageFromMem(blob)
+
+	if png == nil || err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestLoadRawImageFromFile(t *T) {
 	pdf, _ := New()
 
@@ -34,10 +51,42 @@ func TestLoadRawImageFromFile(t *T) {
 	}
 }
 
+func TestLoadRawImageFromMem(t *T) {
+	pdf, _ := New()
+
+	blob, err := ioutil.ReadFile("testdata/raw.raw")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	raw, err := pdf.LoadRawImageFromMem(blob, 470, 470, CS_DEVICE_RGB, 8)
+
+	if raw == nil || err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestLoadJpegImageFromFile(t *T) {
 	pdf, _ := New()
 
 	jpeg, err := pdf.LoadJpegImageFromFile("testdata/jpg.jpg")
+
+	if jpeg == nil || err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestLoadJpegImageFromMem(t *T) {
+	pdf, _ := New()
+
+	blob, err := ioutil.ReadFile("testdata/jpg.jpg")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	jpeg, err := pdf.LoadJpegImageFromMem(blob)
 
 	if jpeg == nil || err != nil {
 		t.Fatal(err)

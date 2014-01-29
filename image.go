@@ -33,6 +33,17 @@ func (pdf *PDF) LoadPngImageFromFile2(filename string) (*Image, error) {
 	}
 }
 
+func (pdf *PDF) LoadPngImageFromMem(mem []byte) (*Image, error) {
+	ptr := (*C.HPDF_BYTE)((unsafe.Pointer(&mem[0])))
+	cimage := C.HPDF_LoadPngImageFromMem(pdf.doc, ptr, C.HPDF_UINT(uint32(len(mem))))
+
+	if cimage != nil {
+		return newImage(cimage, pdf), nil
+	} else {
+		return nil, pdf.GetLastError()
+	}
+}
+
 func (pdf *PDF) LoadRawImageFromFile(
 	filename string, width, height uint32, colorSpace ColorSpace,
 ) (*Image, error) {
@@ -51,10 +62,45 @@ func (pdf *PDF) LoadRawImageFromFile(
 	}
 }
 
+func (pdf *PDF) LoadRawImageFromMem(
+	mem []byte,
+	width uint32,
+	height uint32,
+	colorSpace ColorSpace,
+	bitsPerComponent uint32,
+) (*Image, error) {
+	ptr := (*C.HPDF_BYTE)((unsafe.Pointer(&mem[0])))
+	cimage := C.HPDF_LoadRawImageFromMem(
+		pdf.doc,
+		ptr,
+		C.HPDF_UINT(width),
+		C.HPDF_UINT(height),
+		C.HPDF_ColorSpace(colorSpace),
+		C.HPDF_UINT(bitsPerComponent),
+	)
+
+	if cimage != nil {
+		return newImage(cimage, pdf), nil
+	} else {
+		return nil, pdf.GetLastError()
+	}
+}
+
 func (pdf *PDF) LoadJpegImageFromFile(filename string) (*Image, error) {
 	cfilename := C.CString(filename)
 	cimage := C.HPDF_LoadJpegImageFromFile(pdf.doc, cfilename)
 	C.free(unsafe.Pointer(cfilename))
+
+	if cimage != nil {
+		return newImage(cimage, pdf), nil
+	} else {
+		return nil, pdf.GetLastError()
+	}
+}
+
+func (pdf *PDF) LoadJpegImageFromMem(mem []byte) (*Image, error) {
+	ptr := (*C.HPDF_BYTE)((unsafe.Pointer(&mem[0])))
+	cimage := C.HPDF_LoadJpegImageFromMem(pdf.doc, ptr, C.HPDF_UINT(uint32(len(mem))))
 
 	if cimage != nil {
 		return newImage(cimage, pdf), nil
