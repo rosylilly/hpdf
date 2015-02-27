@@ -4,6 +4,7 @@ package hpdf
 #cgo LDFLAGS: -lhpdf -lpng -lz
 #include "hpdf.h"
 
+#ifndef HPDF_UTF_SUPPORT
 #if HPDF_MAJOR_VERSION == 2 && HPDF_MINOR_VERSION < 3
 #define HPDF_UTF_SUPPORT 0
 
@@ -13,6 +14,8 @@ HPDF_STATUS HPDF_UseUTFEncodings(HPDF_Doc pdf) {
 #else
 #define HPDF_UTF_SUPPORT 1
 #endif
+#endif
+
 */
 import "C"
 import (
