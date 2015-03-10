@@ -141,3 +141,16 @@ func TestPageMesureText(t *T) {
 		t.Fatalf("Broken width: %f", width)
 	}
 }
+
+func TestPageGetGMode(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if gMode := page.GetGMode(); gMode != GMODE_PAGE_DESCRIPTION {
+		t.Fatalf("Broken width: %v", gMode)
+	}
+}

@@ -99,3 +99,8 @@ func (page *Page) MeasureText(text string, width float32, wordwrap bool) (float3
 	C.HPDF_Page_MeasureText(page.page, ctext, C.HPDF_REAL(width), cwordwrap, (*C.HPDF_REAL)(&realWidth))
 	return realWidth, page.pdf.GetLastError()
 }
+
+func (page *Page) GetGMode() GMode {
+	gMode := C.HPDF_Page_GetGMode(page.page)
+	return GMode(gMode)
+}
