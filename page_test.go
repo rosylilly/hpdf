@@ -109,3 +109,35 @@ func TestPageTextWidth(t *T) {
 		t.Fatal(pdf.GetLastError())
 	}
 }
+
+func TestPageMesureText(t *T) {
+	pdf, _ := New()
+	font, _ := pdf.GetFont("Courier")
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	page.SetFontAndSize(font, 12)
+
+	width, err := page.MeasureText("text", 100, false)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if width != 28.8 {
+		t.Fatalf("Broken width: %f", width)
+	}
+
+	width, err = page.MeasureText("text text", 30, true)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if width <= 0 {
+		t.Fatalf("Broken width: %f", width)
+	}
+}

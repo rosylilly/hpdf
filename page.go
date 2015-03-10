@@ -84,3 +84,18 @@ func (page *Page) TextWidth(text string) float32 {
 	defer C.free(unsafe.Pointer(ctext))
 	return float32(C.HPDF_Page_TextWidth(page.page, ctext))
 }
+
+func (page *Page) MeasureText(text string, width float32, wordwrap bool) (float32, error) {
+	ctext := C.CString(text)
+	defer C.free(unsafe.Pointer(ctext))
+
+	var cwordwrap C.HPDF_BOOL = C.HPDF_FALSE
+	if wordwrap {
+		cwordwrap = C.HPDF_TRUE
+	}
+
+	var realWidth float32
+
+	C.HPDF_Page_MeasureText(page.page, ctext, C.HPDF_REAL(width), cwordwrap, (*C.HPDF_REAL)(&realWidth))
+	return realWidth, page.pdf.GetLastError()
+}
