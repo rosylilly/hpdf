@@ -6,6 +6,8 @@ a [libharu](http://www.libharu.org/) binding for golang
 
 Copyright 2013 (c) Sho Kusano
 
+__WIP__: [Check supported APIs](https://github.com/rosylilly/hpdf/issues/4)
+
 ## Install
 
 A hpdf requires libharu's shared-libary. please install libharu before install hpdf.
