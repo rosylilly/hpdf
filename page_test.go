@@ -205,3 +205,24 @@ func TestPageGetCurrentFont(t *T) {
 		t.Fatal("Got nil")
 	}
 }
+
+func TestPageGetCurrentFontSize(t *T) {
+	pdf, _ := New()
+	font, _ := pdf.GetFont("Courier")
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if actual := page.GetCurrentFontSize(); actual != 0 {
+		t.Fatalf("Got: %+v", actual)
+	}
+
+	page.SetFontAndSize(font, 12)
+
+	actual := page.GetCurrentFontSize()
+	if actual == 0 {
+		t.Fatal("Got zero")
+	}
+}

@@ -126,3 +126,9 @@ func (page *Page) GetCurrentFont() *Font {
 		return nil
 	}
 }
+
+func (page *Page) GetCurrentFontSize() float32 {
+	cSize := C.HPDF_Page_GetCurrentFontSize(page.page)
+
+	return float32(cSize)
+}
