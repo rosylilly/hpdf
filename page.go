@@ -101,6 +101,28 @@ func (page *Page) MeasureText(text string, width float32, wordwrap bool) (float3
 }
 
 func (page *Page) GetGMode() GMode {
-	gMode := C.HPDF_Page_GetGMode(page.page)
-	return GMode(gMode)
+	cgMode := C.HPDF_Page_GetGMode(page.page)
+	return GMode(cgMode)
+}
+
+func (page *Page) GetCurrentPos() *Point {
+	cpoint := C.HPDF_Page_GetCurrentPos(page.page)
+
+	return pointFromHPDFPoint(cpoint)
+}
+
+func (page *Page) GetCurrentTextPos() *Point {
+	cpoint := C.HPDF_Page_GetCurrentTextPos(page.page)
+
+	return pointFromHPDFPoint(cpoint)
+}
+
+func (page *Page) GetCurrentFont() *Font {
+	cFont := C.HPDF_Page_GetCurrentFont(page.page)
+
+	if cFont != nil {
+		return newFont(cFont)
+	} else {
+		return nil
+	}
 }

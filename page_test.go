@@ -154,3 +154,54 @@ func TestPageGetGMode(t *T) {
 		t.Fatalf("Broken width: %v", gMode)
 	}
 }
+
+func TestPageGetCurrentPos(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	point := page.GetCurrentPos()
+
+	if point == nil {
+		t.Fatal("broken GetCurrentPos")
+	}
+}
+
+func TestPageGetCurrentTextPos(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	point := page.GetCurrentTextPos()
+
+	if point == nil {
+		t.Fatal("broken GetCurrentTextPos")
+	}
+}
+
+func TestPageGetCurrentFont(t *T) {
+	pdf, _ := New()
+	font, _ := pdf.GetFont("Courier")
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if actual := page.GetCurrentFont(); actual != nil {
+		t.Fatalf("Got: %+v", actual)
+	}
+
+	page.SetFontAndSize(font, 12)
+
+	actual := page.GetCurrentFont()
+	if actual == nil {
+		t.Fatal("Got nil")
+	}
+}
