@@ -1,5 +1,7 @@
 # hpdf
 
+[![Build Status](https://drone.io/github.com/rosylilly/hpdf/status.png)](https://drone.io/github.com/rosylilly/hpdf/latest)
+
 a [libharu](http://www.libharu.org/) binding for golang
 
 Copyright 2013 (c) Sho Kusano
