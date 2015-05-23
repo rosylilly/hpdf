@@ -21,7 +21,7 @@ func (page *Page) SetFontAndSize(font *Font, size float32) error {
 	return page.pdf.GetLastError()
 }
 
-func (page *Page) SetRGBFill(r int, g int, b int) error {
+func (page *Page) SetRGBFill(r float32, g float32, b float32) error {
 	C.HPDF_Page_SetRGBFill(
 		page.page,
 		C.HPDF_REAL(r),
