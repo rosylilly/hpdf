@@ -27,3 +27,13 @@ func TestPageSetFontAndSize(t *T) {
 		t.Fatal(err)
 	}
 }
+
+func TestPageSetRGBFill(t *T) {
+	pdf, _ := New()
+	page, _ := pdf.AddPage()
+
+	err := page.SetRGBFill(1, 0, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
