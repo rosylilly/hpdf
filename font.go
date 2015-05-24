@@ -43,7 +43,6 @@ func (pdf *PDF) LoadType1FontFromFile(afmFn string, pfmFn ...string) (string, er
 	}
 
 	if fontName != nil {
-		defer C.free(unsafe.Pointer(fontName))
 		return C.GoString(fontName), nil
 	} else {
 		return "", pdf.GetLastError()
@@ -60,7 +59,6 @@ func (pdf *PDF) LoadTTFontFromFile(fontName string, embedding bool) (string, err
 	C.free(unsafe.Pointer(cfontName))
 
 	if retFontName != nil {
-		defer C.free(unsafe.Pointer(retFontName))
 		return C.GoString(retFontName), nil
 	} else {
 		return "", pdf.GetLastError()
@@ -77,7 +75,6 @@ func (pdf *PDF) LoadTTFontFromFile2(fontName string, index uint, embedding bool)
 	C.free(unsafe.Pointer(cfontName))
 
 	if retFontName != nil {
-		defer C.free(unsafe.Pointer(retFontName))
 		return C.GoString(retFontName), nil
 	} else {
 		return "", pdf.GetLastError()
