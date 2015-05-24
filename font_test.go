@@ -19,7 +19,13 @@ func TestLoadType1FontFromFile(t *T) {
 }
 
 func TestLoadTTFontFromFile(t *T) {
-	t.Skip("I dont't have ttf files")
+	pdf, _ := New()
+	fontName, err := pdf.LoadTTFontFromFile("testdata/nimbus-sans-l_regular.ttf", true)
+
+	if err != nil || fontName == "" {
+		t.Fatal(err)
+	}
+
 }
 
 func TestLoadTTFontFromFile2(t *T) {
