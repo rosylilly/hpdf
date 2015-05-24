@@ -132,3 +132,9 @@ func (page *Page) GetCurrentFontSize() float32 {
 
 	return float32(cSize)
 }
+
+func (page *Page) GetTransMatrix() *TransMatrix {
+	cTransMatrix := C.HPDF_Page_GetTransMatrix(page.page)
+
+	return transMatrixFromHPDFTransMatrix(cTransMatrix)
+}

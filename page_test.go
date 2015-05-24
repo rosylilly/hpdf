@@ -226,3 +226,17 @@ func TestPageGetCurrentFontSize(t *T) {
 		t.Fatal("Got zero")
 	}
 }
+
+func TestPageGetTransMatrix(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	transMatrix := page.GetTransMatrix()
+	if transMatrix == nil {
+		t.Fatal(pdf.GetLastError())
+	}
+}
