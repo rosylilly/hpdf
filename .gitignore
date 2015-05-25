@@ -1,3 +1,4 @@
 tmp/*
 *.pdf
 .DS_Store
+hpdf.test
