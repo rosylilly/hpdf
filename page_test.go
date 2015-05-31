@@ -270,3 +270,18 @@ func TestPageGetLineCap(t *T) {
 		t.Fatal(lc)
 	}
 }
+
+func TestPageGetLineJoin(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	lj := page.GetLineJoin()
+
+	if lj != LINE_JOIN_MITER_JOIN {
+		t.Fatal(lj)
+	}
+}

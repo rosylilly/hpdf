@@ -150,3 +150,9 @@ func (page *Page) GetLineCap() LineCap {
 
 	return LineCap(cLineCap)
 }
+
+func (page *Page) GetLineJoin() LineJoin {
+	cLineJoin := C.HPDF_Page_GetLineJoin(page.page)
+
+	return LineJoin(cLineJoin)
+}
