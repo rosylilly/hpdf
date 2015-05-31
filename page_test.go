@@ -285,3 +285,19 @@ func TestPageGetLineJoin(t *T) {
 		t.Fatal(lj)
 	}
 }
+
+func TestPageGetMiterLimit(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ml := page.GetMiterLimit()
+
+	if err := pdf.GetLastError(); err != nil {
+		t.Log(ml)
+		t.Fatal(err)
+	}
+}

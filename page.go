@@ -156,3 +156,9 @@ func (page *Page) GetLineJoin() LineJoin {
 
 	return LineJoin(cLineJoin)
 }
+
+func (page *Page) GetMiterLimit() float32 {
+	cMiterLimit := C.HPDF_Page_GetMiterLimit(page.page)
+
+	return float32(cMiterLimit)
+}
