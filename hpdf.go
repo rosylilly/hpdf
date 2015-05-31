@@ -1,8 +1,13 @@
 package hpdf
 
-const (
-	VERSION       = "0.0.0"
-	VERSION_MAJOR = "0"
-	VERSION_MINOR = "0"
-	VERSION_PATCH = "0"
-)
+/*
+#cgo LDFLAGS: -lhpdf -lpng -lz
+#include "hpdf.h"
+*/
+import "C"
+
+func Version() string {
+	cString := C.HPDF_GetVersion()
+
+	return C.GoString(cString)
+}
