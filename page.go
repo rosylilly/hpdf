@@ -138,3 +138,9 @@ func (page *Page) GetTransMatrix() *TransMatrix {
 
 	return transMatrixFromHPDFTransMatrix(cTransMatrix)
 }
+
+func (page *Page) GetLineWidth() float32 {
+	cLineWidth := C.HPDF_Page_GetLineWidth(page.page)
+
+	return float32(cLineWidth)
+}

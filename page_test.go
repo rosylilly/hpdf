@@ -240,3 +240,18 @@ func TestPageGetTransMatrix(t *T) {
 		t.Fatal(pdf.GetLastError())
 	}
 }
+
+func TestPageGetLineWidth(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	lw := page.GetLineWidth()
+
+	if lw == 0 {
+		t.Fatal(pdf.GetLastError())
+	}
+}
