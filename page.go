@@ -144,3 +144,9 @@ func (page *Page) GetLineWidth() float32 {
 
 	return float32(cLineWidth)
 }
+
+func (page *Page) GetLineCap() LineCap {
+	cLineCap := C.HPDF_Page_GetLineCap(page.page)
+
+	return LineCap(cLineCap)
+}
