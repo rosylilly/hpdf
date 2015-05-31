@@ -226,3 +226,96 @@ func TestPageGetCurrentFontSize(t *T) {
 		t.Fatal("Got zero")
 	}
 }
+
+func TestPageGetTransMatrix(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	transMatrix := page.GetTransMatrix()
+	if transMatrix == nil {
+		t.Fatal(pdf.GetLastError())
+	}
+}
+
+func TestPageGetLineWidth(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	lw := page.GetLineWidth()
+
+	if lw == 0 {
+		t.Fatal(pdf.GetLastError())
+	}
+}
+
+func TestPageGetLineCap(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	lc := page.GetLineCap()
+
+	if lc != LINE_CAP_BUTT_END {
+		t.Fatal(lc)
+	}
+}
+
+func TestPageGetLineJoin(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	lj := page.GetLineJoin()
+
+	if lj != LINE_JOIN_MITER_JOIN {
+		t.Fatal(lj)
+	}
+}
+
+func TestPageGetMiterLimit(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ml := page.GetMiterLimit()
+
+	if err := pdf.GetLastError(); err != nil {
+		t.Log(ml)
+		t.Fatal(err)
+	}
+}
+
+func TestPageGetDash(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	dm := page.GetDash()
+
+	err = pdf.GetLastError()
+
+	if err != nil || dm == nil {
+		t.Fatal(err, dm)
+	}
+	t.Logf("%+v", dm)
+}

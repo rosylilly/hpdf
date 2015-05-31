@@ -132,3 +132,39 @@ func (page *Page) GetCurrentFontSize() float32 {
 
 	return float32(cSize)
 }
+
+func (page *Page) GetTransMatrix() *TransMatrix {
+	cTransMatrix := C.HPDF_Page_GetTransMatrix(page.page)
+
+	return transMatrixFromHPDFTransMatrix(cTransMatrix)
+}
+
+func (page *Page) GetLineWidth() float32 {
+	cLineWidth := C.HPDF_Page_GetLineWidth(page.page)
+
+	return float32(cLineWidth)
+}
+
+func (page *Page) GetLineCap() LineCap {
+	cLineCap := C.HPDF_Page_GetLineCap(page.page)
+
+	return LineCap(cLineCap)
+}
+
+func (page *Page) GetLineJoin() LineJoin {
+	cLineJoin := C.HPDF_Page_GetLineJoin(page.page)
+
+	return LineJoin(cLineJoin)
+}
+
+func (page *Page) GetMiterLimit() float32 {
+	cMiterLimit := C.HPDF_Page_GetMiterLimit(page.page)
+
+	return float32(cMiterLimit)
+}
+
+func (page *Page) GetDash() *DashMode {
+	cDashMode := C.HPDF_Page_GetDash(page.page)
+
+	return dashModeFromHPDFDashMode(cDashMode)
+}

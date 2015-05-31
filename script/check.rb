@@ -12,6 +12,7 @@ header.gsub(/^#.*$/, '').scan(/HPDF_EXPORT[^;]+;/) do |export|
 end
 
 supported = []
+functions.sort!
 functions.each do |func|
   l = `git grep -l "#{func}"`.strip.lines.length
 
