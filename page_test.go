@@ -301,3 +301,21 @@ func TestPageGetMiterLimit(t *T) {
 		t.Fatal(err)
 	}
 }
+
+func TestPageGetDash(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	dm := page.GetDash()
+
+	err = pdf.GetLastError()
+
+	if err != nil || dm == nil {
+		t.Fatal(err, dm)
+	}
+	t.Logf("%+v", dm)
+}

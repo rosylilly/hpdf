@@ -162,3 +162,9 @@ func (page *Page) GetMiterLimit() float32 {
 
 	return float32(cMiterLimit)
 }
+
+func (page *Page) GetDash() *DashMode {
+	cDashMode := C.HPDF_Page_GetDash(page.page)
+
+	return dashModeFromHPDFDashMode(cDashMode)
+}
