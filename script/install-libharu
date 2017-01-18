@@ -1,0 +1,17 @@
+#!/bin/bash
+
+PREFIX=`pwd`/tmp/libharu
+VERSION="2_3_0"
+
+rm -rf tmp/libharu-RELEASE_${VERSION}
+
+curl -L -o tmp/libharu.tar.gz https://github.com/libharu/libharu/archive/RELEASE_${VERSION}.tar.gz
+tar zxf tmp/libharu.tar.gz -C ./tmp
+cd tmp/libharu-RELEASE_${VERSION}
+
+./buildconf.sh --force
+mkdir -p ${PREFIX}
+./configure --prefix=${PREFIX} --with-zlib --with-png
+make clean
+make -j8
+make install
