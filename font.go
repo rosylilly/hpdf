@@ -154,3 +154,31 @@ func (font *Font) GetXHeight() uint32 {
 func (font *Font) GetCapHeight() uint32 {
 	return uint32(C.HPDF_Font_GetCapHeight(font.font))
 }
+
+func (font *Font) TextWidth(text string) *TextWidth {
+	bytes := []byte(text)
+	ptr := (*C.HPDF_BYTE)((unsafe.Pointer(&bytes[0])))
+
+	ctw := C.HPDF_Font_TextWidth(font.font, ptr, C.HPDF_UINT(uint32(len(bytes))))
+
+	tw := textWidthFromHPDF_TextWidth(ctw)
+
+	return tw
+}
+
+func (font *Font) MeasureText(text string, width float32, fontSize float32, charSpace float32, wordSpace float32, wordwrap bool, realWidth *float32) uint32 {
+	bytes := []byte(text)
+	ptr := (*C.HPDF_BYTE)((unsafe.Pointer(&bytes[0])))
+
+	var cWordwrap C.HPDF_BOOL = C.HPDF_TRUE
+	if !wordwrap {
+		cWordwrap = C.HPDF_FALSE
+	}
+
+	return uint32(C.HPDF_Font_MeasureText(
+		font.font, ptr, C.HPDF_UINT(uint32(len(bytes))),
+		C.HPDF_REAL(width), C.HPDF_REAL(fontSize), C.HPDF_REAL(charSpace), C.HPDF_REAL(wordSpace),
+		cWordwrap, (*C.HPDF_REAL)(realWidth),
+	))
+
+}

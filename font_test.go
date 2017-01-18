@@ -199,3 +199,42 @@ func TestFontGetCapHeight(t *T) {
 		t.Fatal("Invalid capHeight:", capHeight)
 	}
 }
+
+func TestFontTextWidth(t *T) {
+	pdf, _ := New()
+
+	font, err := pdf.GetFont("Courier")
+
+	if font == nil || err != nil {
+		t.Fatal(err)
+	}
+
+	textWidth := font.TextWidth("Hello, World")
+
+	if textWidth == nil {
+		t.Fatal("Invalid textWidth:", textWidth)
+	}
+
+	t.Logf("%+v", textWidth)
+}
+
+func TestFontMeasureText(t *T) {
+	pdf, _ := New()
+
+	font, err := pdf.GetFont("Courier")
+
+	if font == nil || err != nil {
+		t.Fatal(err)
+	}
+
+	length := font.MeasureText("Hello, World", 100, 24, 1, 1, false, nil)
+	if length != 7 {
+		t.Fatalf("Invalid byte length: %d", length)
+	}
+
+	length = font.MeasureText("Hello, World", 100, 12, 1, 1, false, nil)
+	if length != 12 {
+		t.Fatalf("Invalid byte length: %d", length)
+	}
+
+}
