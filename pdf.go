@@ -151,6 +151,15 @@ func (pdf *PDF) SetPermission(permission Permission) error {
 	return pdf.GetLastError()
 }
 
+func (pdf *PDF) GetViewerPreference() ViewerPreference {
+	return ViewerPreference(C.HPDF_GetViewerPreference(pdf.doc))
+}
+
+func (pdf *PDF) SetViewerPreference(preference ViewerPreference) error {
+	C.HPDF_SetViewerPreference(pdf.doc, C.HPDF_UINT(preference))
+	return pdf.GetLastError()
+}
+
 func (pdf *PDF) SetEncryptMode(encryptMode EncryptMode, keyLen uint32) error {
 	C.HPDF_SetEncryptionMode(
 		pdf.doc, C.HPDF_EncryptMode(encryptMode), C.HPDF_UINT(keyLen),

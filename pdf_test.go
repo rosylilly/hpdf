@@ -228,6 +228,28 @@ func TestPDFSetPermission(t *T) {
 	}
 }
 
+func TestPDFSetViewerPreference(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	pref := pdf.GetViewerPreference()
+
+	if pref != 0 {
+		t.Fatalf("Viewer Preferece: %d", pref)
+	}
+
+	pdf.SetViewerPreference(HIDE_TOOLBAR | HIDE_MENUBAR)
+
+	pref = pdf.GetViewerPreference()
+
+	if pref != 3 {
+		t.Fatalf("Viewer Preferece: %d", pref)
+	}
+}
+
 func TestPDFSetEncryptMode(t *T) {
 	pdf, err := New()
 
