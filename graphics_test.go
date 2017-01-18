@@ -47,3 +47,23 @@ func TestPageSetRGBStroke(t *T) {
 		t.Fatal(err)
 	}
 }
+
+func TestPageSetCMYKFill(t *T) {
+	pdf, _ := New()
+	page, _ := pdf.AddPage()
+
+	err := page.SetCMYKFill(0.50, 0.32, 0.75, 0.25)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestPageSetCMYKStroke(t *T) {
+	pdf, _ := New()
+	page, _ := pdf.AddPage()
+
+	err := page.SetCMYKStroke(0.50, 0.32, 0.75, 0.25)
+	if err != nil {
+		t.Fatal(err)
+	}
+}

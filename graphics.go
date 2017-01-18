@@ -42,3 +42,27 @@ func (page *Page) SetRGBStroke(r float32, g float32, b float32) error {
 
 	return page.pdf.GetLastError()
 }
+
+func (page *Page) SetCMYKFill(c, m, y, k float32) error {
+	C.HPDF_Page_SetCMYKFill(
+		page.page,
+		C.HPDF_REAL(c),
+		C.HPDF_REAL(m),
+		C.HPDF_REAL(y),
+		C.HPDF_REAL(k),
+	)
+
+	return page.pdf.GetLastError()
+}
+
+func (page *Page) SetCMYKStroke(c, m, y, k float32) error {
+	C.HPDF_Page_SetCMYKStroke(
+		page.page,
+		C.HPDF_REAL(c),
+		C.HPDF_REAL(m),
+		C.HPDF_REAL(y),
+		C.HPDF_REAL(k),
+	)
+
+	return page.pdf.GetLastError()
+}
