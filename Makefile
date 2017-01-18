@@ -4,4 +4,5 @@ export CGO_LDFLAGS := -L$(shell pwd)/tmp/libharu/lib
 
 test:
 	@go test -v -race -covermode=count -coverprofile=tmp/coverage.out
+	@go tool cover -html=tmp/coverage.out -o tmp/coverage.html
 .PHONEY: test
