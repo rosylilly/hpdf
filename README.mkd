@@ -1,6 +1,7 @@
 # hpdf
 
-[![Build Status](https://drone.io/github.com/rosylilly/hpdf/status.png)](https://drone.io/github.com/rosylilly/hpdf/latest)
+[![Build Status](https://img.shields.io/circleci/project/github/rosylilly/hpdf.svg)](https://circleci.com/gh/rosylilly/hpdf)
+[![Coverage Status](https://coveralls.io/repos/github/rosylilly/hpdf/badge.svg?branch=master)](https://coveralls.io/github/rosylilly/hpdf?branch=master)
 
 a [libharu](http://www.libharu.org/) binding for golang
 
