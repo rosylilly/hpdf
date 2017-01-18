@@ -15,4 +15,6 @@ test:
   override:
     - make test
   post:
+    - mkdir -p $HOME/.go_workspace/src/_/home/ubuntu/
+    - ln -s $HOME/$CIRCLE_PROJECT_REPONAME $HOME/.go_workspace/src/_/home/ubuntu/
     - goveralls -coverprofile=tmp/coverage.out -service=circle-ci -repotoken=$COVERALLS_TOKEN
