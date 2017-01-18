@@ -1,3 +1,4 @@
+export LD_LIBRARY_PATH := $(shell pwd)/tmp/libharu/lib:$(LD_LIBRARY_PATH)
 export CGO_CFLAGS := -I$(shell pwd)/tmp/libharu/include
 export CGO_LDFLAGS := -L$(shell pwd)/tmp/libharu/lib
 
