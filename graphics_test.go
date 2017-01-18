@@ -123,3 +123,19 @@ func TestPageSetCMYKStroke(t *T) {
 		t.Fatalf("Invalid color: %+v", c)
 	}
 }
+
+func TestPageSetHorizontalScalling(t *T) {
+	pdf, _ := New()
+	page, _ := pdf.AddPage()
+
+	err := page.SetHorizontalScalling(50)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	s := page.GetHorizontalScalling()
+
+	if s != 50 {
+		t.Fatalf("Invalid scale: %f", s)
+	}
+}

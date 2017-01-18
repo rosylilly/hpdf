@@ -102,3 +102,12 @@ func (page *Page) SetCMYKStroke(c, m, y, k float32) error {
 
 	return page.pdf.GetLastError()
 }
+
+func (page *Page) GetHorizontalScalling() float32 {
+	return float32(C.HPDF_Page_GetHorizontalScalling(page.page))
+}
+
+func (page *Page) SetHorizontalScalling(scale float32) error {
+	C.HPDF_Page_SetHorizontalScalling(page.page, C.HPDF_REAL(scale))
+	return page.pdf.GetLastError()
+}
