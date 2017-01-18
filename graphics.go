@@ -21,6 +21,26 @@ func (page *Page) SetFontAndSize(font *Font, size float32) error {
 	return page.pdf.GetLastError()
 }
 
+func (page *Page) GetGrayFill() float32 {
+	return float32(C.HPDF_Page_GetGrayFill(page.page))
+}
+
+func (page *Page) SetGrayFill(gray float32) error {
+	C.HPDF_Page_SetGrayFill(page.page, C.HPDF_REAL(gray))
+
+	return page.pdf.GetLastError()
+}
+
+func (page *Page) GetGrayStroke() float32 {
+	return float32(C.HPDF_Page_GetGrayStroke(page.page))
+}
+
+func (page *Page) SetGrayStroke(gray float32) error {
+	C.HPDF_Page_SetGrayStroke(page.page, C.HPDF_REAL(gray))
+
+	return page.pdf.GetLastError()
+}
+
 func (page *Page) GetRGBFill() *RGBColor {
 	return rgbColorFromHPDF_RGBColor(C.HPDF_Page_GetRGBFill(page.page))
 }

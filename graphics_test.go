@@ -28,6 +28,38 @@ func TestPageSetFontAndSize(t *T) {
 	}
 }
 
+func TestPageSetGrayFill(t *T) {
+	pdf, _ := New()
+	page, _ := pdf.AddPage()
+
+	err := page.SetGrayFill(0.50)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	c := page.GetGrayFill()
+
+	if c != 0.50 {
+		t.Fatalf("Invalid color: %+v", c)
+	}
+}
+
+func TestPageSetGrayStroke(t *T) {
+	pdf, _ := New()
+	page, _ := pdf.AddPage()
+
+	err := page.SetGrayStroke(0.50)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	c := page.GetGrayStroke()
+
+	if c != 0.50 {
+		t.Fatalf("Invalid color: %+v", c)
+	}
+}
+
 func TestPageSetRGBFill(t *T) {
 	pdf, _ := New()
 	page, _ := pdf.AddPage()
