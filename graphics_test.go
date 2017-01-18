@@ -37,3 +37,13 @@ func TestPageSetRGBFill(t *T) {
 		t.Fatal(err)
 	}
 }
+
+func TestPageSetRGBStroke(t *T) {
+	pdf, _ := New()
+	page, _ := pdf.AddPage()
+
+	err := page.SetRGBStroke(0.50, 0.32, 0.75)
+	if err != nil {
+		t.Fatal(err)
+	}
+}

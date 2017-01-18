@@ -31,3 +31,14 @@ func (page *Page) SetRGBFill(r float32, g float32, b float32) error {
 
 	return page.pdf.GetLastError()
 }
+
+func (page *Page) SetRGBStroke(r float32, g float32, b float32) error {
+	C.HPDF_Page_SetRGBStroke(
+		page.page,
+		C.HPDF_REAL(r),
+		C.HPDF_REAL(g),
+		C.HPDF_REAL(b),
+	)
+
+	return page.pdf.GetLastError()
+}
