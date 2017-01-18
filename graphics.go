@@ -21,6 +21,10 @@ func (page *Page) SetFontAndSize(font *Font, size float32) error {
 	return page.pdf.GetLastError()
 }
 
+func (page *Page) GetRGBFill() *RGBColor {
+	return rgbColorFromHPDF_RGBColor(C.HPDF_Page_GetRGBFill(page.page))
+}
+
 func (page *Page) SetRGBFill(r float32, g float32, b float32) error {
 	C.HPDF_Page_SetRGBFill(
 		page.page,
@@ -30,6 +34,10 @@ func (page *Page) SetRGBFill(r float32, g float32, b float32) error {
 	)
 
 	return page.pdf.GetLastError()
+}
+
+func (page *Page) GetRGBStroke() *RGBColor {
+	return rgbColorFromHPDF_RGBColor(C.HPDF_Page_GetRGBStroke(page.page))
 }
 
 func (page *Page) SetRGBStroke(r float32, g float32, b float32) error {
@@ -43,6 +51,10 @@ func (page *Page) SetRGBStroke(r float32, g float32, b float32) error {
 	return page.pdf.GetLastError()
 }
 
+func (page *Page) GetCMYKFill() *CMYKColor {
+	return cmykColorFromHPDF_CMYKColor(C.HPDF_Page_GetCMYKFill(page.page))
+}
+
 func (page *Page) SetCMYKFill(c, m, y, k float32) error {
 	C.HPDF_Page_SetCMYKFill(
 		page.page,
@@ -53,6 +65,10 @@ func (page *Page) SetCMYKFill(c, m, y, k float32) error {
 	)
 
 	return page.pdf.GetLastError()
+}
+
+func (page *Page) GetCMYKStroke() *CMYKColor {
+	return cmykColorFromHPDF_CMYKColor(C.HPDF_Page_GetCMYKStroke(page.page))
 }
 
 func (page *Page) SetCMYKStroke(c, m, y, k float32) error {

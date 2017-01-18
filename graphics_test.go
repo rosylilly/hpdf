@@ -36,6 +36,12 @@ func TestPageSetRGBFill(t *T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	c := page.GetRGBFill()
+
+	if c.R != 0.50 || c.G != 0.32 || c.B != 0.75 {
+		t.Fatalf("Invalid color: %+v", c)
+	}
 }
 
 func TestPageSetRGBStroke(t *T) {
@@ -45,6 +51,12 @@ func TestPageSetRGBStroke(t *T) {
 	err := page.SetRGBStroke(0.50, 0.32, 0.75)
 	if err != nil {
 		t.Fatal(err)
+	}
+
+	c := page.GetRGBStroke()
+
+	if c.R != 0.50 || c.G != 0.32 || c.B != 0.75 {
+		t.Fatalf("Invalid color: %+v", c)
 	}
 }
 
@@ -56,6 +68,12 @@ func TestPageSetCMYKFill(t *T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	c := page.GetCMYKFill()
+
+	if c.C != 0.50 || c.M != 0.32 || c.Y != 0.75 || c.K != 0.25 {
+		t.Fatalf("Invalid color: %+v", c)
+	}
 }
 
 func TestPageSetCMYKStroke(t *T) {
@@ -65,5 +83,11 @@ func TestPageSetCMYKStroke(t *T) {
 	err := page.SetCMYKStroke(0.50, 0.32, 0.75, 0.25)
 	if err != nil {
 		t.Fatal(err)
+	}
+
+	c := page.GetCMYKStroke()
+
+	if c.C != 0.50 || c.M != 0.32 || c.Y != 0.75 || c.K != 0.25 {
+		t.Fatalf("Invalid color: %+v", c)
 	}
 }
