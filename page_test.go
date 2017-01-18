@@ -28,6 +28,29 @@ func TestInsertPage(t *T) {
 	}
 }
 
+func TestGetPageByIndex(t *T) {
+	pdf, _ := New()
+
+	_, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	indexedPage, err := pdf.GetPageByIndex(0)
+
+	if indexedPage == nil || err != nil {
+		t.Fatal(err)
+	}
+
+	notFoundPage, err := pdf.GetPageByIndex(100)
+
+	if notFoundPage != nil || err == nil {
+		t.Fatal("Found page at 100")
+	}
+
+	t.Log(err)
+}
+
 func TestPageSetWidth(t *T) {
 	pdf, _ := New()
 
