@@ -10,6 +10,8 @@ dependencies:
     - go get golang.org/x/tools/cmd/cover
     - go get github.com/mattn/goveralls
     - ./script/install-libharu
+  override:
+    - go get -t -d -v ./...
 
 test:
   override:
