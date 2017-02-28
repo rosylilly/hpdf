@@ -84,7 +84,7 @@ func (pdf *PDF) SaveToStream(wr io.Writer) error {
 		if size == 0 {
 			break
 		}
-		if _, err := wr.Write(buf[:]); err != nil {
+		if _, err := wr.Write(buf[:size]); err != nil {
 			return err
 		}
 	}
