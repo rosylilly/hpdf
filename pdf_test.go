@@ -1,6 +1,7 @@
 package hpdf
 
 import (
+	"os"
 	. "testing"
 	"time"
 )
@@ -56,6 +57,26 @@ func TestPDFSaveToFile(t *T) {
 	}
 
 	err = pdf.SaveToFile("tmp/save_to_file.pdf")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestPDFSaveToStream(t *T) {
+	pdf, err := New()
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	f, err := os.Create("tmp/save_to_stream.pdf")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
+
+	err = pdf.SaveToStream(f)
 
 	if err != nil {
 		t.Fatal(err)
