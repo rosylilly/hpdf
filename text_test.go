@@ -35,6 +35,22 @@ func TestBeginAndEndText(t *T) {
 	}
 }
 
+func TestMoveTextPos(t *T) {
+	page, _, err := CreatePage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	page.BeginText()
+
+	err = page.MoveTextPos(72, 711.384)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	page.EndText()
+}
+
 func TestShowText(t *T) {
 	page, pdf, err := CreatePage()
 
