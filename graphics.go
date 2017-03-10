@@ -52,6 +52,15 @@ func (page *Page) Rectangle(x float32, y float32, width float32, height float32)
 	return page.pdf.GetLastError()
 }
 
+func (page *Page) SetDash(dashPtn []uint16, phase uint) error {
+	var ptn *C.HPDF_UINT16 = nil
+	if len(dashPtn) > 0 {
+		ptn = (*C.HPDF_UINT16)(&dashPtn[0])
+	}
+	C.HPDF_Page_SetDash(page.page, ptn, C.HPDF_UINT(len(dashPtn)), C.HPDF_UINT(phase))
+	return page.pdf.GetLastError()
+}
+
 func (page *Page) SetFontAndSize(font *Font, size float32) error {
 	C.HPDF_Page_SetFontAndSize(
 		page.page, font.font, C.HPDF_REAL(size),
