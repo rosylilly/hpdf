@@ -35,6 +35,32 @@ func TestBeginAndEndText(t *T) {
 	}
 }
 
+func TestSetCharSpace(t *T) {
+	page, _, err := CreatePage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = page.SetCharSpace(0.5)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestSetWordSpace(t *T) {
+	page, _, err := CreatePage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = page.SetWordSpace(0.5)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestMoveTextPos(t *T) {
 	page, _, err := CreatePage()
 	if err != nil {

@@ -17,6 +17,16 @@ func (page *Page) EndText() error {
 	return page.pdf.GetLastError()
 }
 
+func (page *Page) SetCharSpace(value float32) error {
+	C.HPDF_Page_SetCharSpace(page.page, C.HPDF_REAL(value))
+	return page.pdf.GetLastError()
+}
+
+func (page *Page) SetWordSpace(value float32) error {
+	C.HPDF_Page_SetWordSpace(page.page, C.HPDF_REAL(value))
+	return page.pdf.GetLastError()
+}
+
 func (page *Page) ShowText(text string) error {
 	cText := C.CString(text)
 
