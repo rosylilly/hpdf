@@ -39,6 +39,16 @@ func (pdf *PDF) InsertPage(src *Page) (*Page, error) {
 	return newPage(page, pdf), nil
 }
 
+func (pdf *PDF) GetPageByIndex(index uint32) (*Page, error) {
+	page := C.HPDF_GetPageByIndex(pdf.doc, C.HPDF_UINT(index))
+
+	if page == nil {
+		return nil, pdf.GetLastError()
+	}
+
+	return newPage(page, pdf), nil
+}
+
 type Page struct {
 	page C.HPDF_Page
 	pdf  *PDF
