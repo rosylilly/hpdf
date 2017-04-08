@@ -6,6 +6,7 @@ package hpdf
 */
 import "C"
 import (
+	"io"
 	"runtime"
 	"time"
 	"unsafe"
@@ -62,6 +63,31 @@ func (pdf *PDF) SaveToFile(fn string) error {
 	cfn := C.CString(fn)
 	C.HPDF_SaveToFile(pdf.doc, cfn)
 	C.free(unsafe.Pointer(cfn))
+
+	return pdf.GetLastError()
+}
+
+func (pdf *PDF) SaveToStream(wr io.Writer) error {
+	if status := C.HPDF_SaveToStream(pdf.doc); status != C.HPDF_OK {
+		return pdf.GetLastError()
+	}
+	if status := C.HPDF_ResetStream(pdf.doc); status != C.HPDF_OK {
+		return pdf.GetLastError()
+	}
+
+	const blocksize = 4096
+	var buf [blocksize]byte
+	ptr := (*C.HPDF_BYTE)((unsafe.Pointer(&buf[0])))
+	for {
+		size := C.HPDF_UINT32(blocksize)
+		C.HPDF_ReadFromStream(pdf.doc, ptr, &size)
+		if size == 0 {
+			break
+		}
+		if _, err := wr.Write(buf[:size]); err != nil {
+			return err
+		}
+	}
 
 	return pdf.GetLastError()
 }
