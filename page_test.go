@@ -271,6 +271,26 @@ func TestPageGetLineCap(t *T) {
 	}
 }
 
+func TestPageSetLineCap(t *T) {
+	pdf, _ := New()
+
+	page, err := pdf.AddPage()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = page.SetLineCap(LINE_CAP_ROUND_END)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	lc := page.GetLineCap()
+	if lc != LINE_CAP_ROUND_END {
+		t.Fatal(lc)
+	}
+}
+
 func TestPageGetLineJoin(t *T) {
 	pdf, _ := New()
 

@@ -151,6 +151,11 @@ func (page *Page) GetLineCap() LineCap {
 	return LineCap(cLineCap)
 }
 
+func (page *Page) SetLineCap(lineCap LineCap) error {
+	C.HPDF_Page_SetLineCap(page.page, C.HPDF_LineCap(lineCap))
+	return page.pdf.GetLastError()
+}
+
 func (page *Page) GetLineJoin() LineJoin {
 	cLineJoin := C.HPDF_Page_GetLineJoin(page.page)
 

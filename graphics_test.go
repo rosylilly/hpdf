@@ -81,6 +81,16 @@ func TestPageRectangle(t *T) {
 	}
 }
 
+func TestPageSetDash(t *T) {
+	pdf, _ := New()
+	page, _ := pdf.AddPage()
+
+	err := page.SetDash([]uint16{2, 3}, 1)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestPageSetFontAndSize(t *T) {
 	pdf, _ := New()
 	font, _ := pdf.GetFont("Courier")
